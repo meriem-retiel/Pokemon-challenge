@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Pokemon-challenge
+This solution allow to list all pokemons and filter pokemons by name.
+the application has been decomposed as following:
+    App: it't the root of all component and it contains :
+        State: 
+         - pokemons : saving requested pokemon data (6 pokemon per request)
+         - searchterm : saving the search input for the filtering
+         - previousUrl: saving the url for requesting the next page
+         - nextUrl: saving the url for requesting the previous page
+         - isLoading and isError : for knowing the state of the request
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+        Functions:
+         - getPokemonsData(url) : getting pokemons of the url given (it can be executed when the page redner of when previous or next button are clicked)
+         - handleNextClick : call getPokemonsData(next page url)
+         - handlePreviousClick : call getPokemonsData(previous page url)
+         - handleSearch : saving the input of the search ( localStorage is used in case of refreshing the page)
 
-## Available Scripts
+        Child Components:
+          List: map throw the pokemons array taken as props
+            Child Components :
+              Pokemon : Display pokemon data taken as props (id, name ,moves,types...) in a card that can be extanded to show details
+               sate :
+               - expanded : to save the state of the card expanded or not 
+               functions :
+               - handleExpandClick : to handle the extention of the card
+          Search: to Display the input field and take use input
+        
 
-In the project directory, you can run:
+        Notes:
 
-### `npm start`
+        - issue 1 : There's a bug when loading the page the pokemons are not displayed , you need to make changes on the input for the data to be displayed.
+        - issue 2 :Since the date is loaded by page (6 pokemons), the issue is that the filtering is made in the front so only on the displayed data, and there's note in the api doc a way to filter by names starting with a given letters.
+        - Solution : A solution is to load all data and handle the pagination in the frontend, the filtering will work.
+           * probleme here is that loading all data not by page is a bad thing for performance.
+        - General observation : some refactoring can be made as some function are repetitive  for example: handlePreviousClick and handleNextClick
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    
